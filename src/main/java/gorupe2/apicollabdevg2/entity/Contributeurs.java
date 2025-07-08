@@ -26,11 +26,7 @@ public class Contributeurs {
     private Niveau niveau;
 
     @ManyToOne
-    @JoinColumn(
-            name="projet_id",
-            referencedColumnName = "id",
-            nullable = false
-    )
+    @JoinColumn(name="projet_id", referencedColumnName = "id", nullable = false)
     private Projet projet;
 
     @OneToMany(mappedBy = "contributeurs")
@@ -41,6 +37,32 @@ public class Contributeurs {
 
     @OneToMany(mappedBy = "contributeurs")
     private List<DebloquerProjet> debloquerProjet;
+
+    @OneToMany(mappedBy = "contributeurs")
+    private List<IdeeProjet> ideeProjet;
+
+    @OneToMany(mappedBy = "contributeurs")
+    private List<Badges> badges;
+
+    @OneToMany(mappedBy = "contributeurs")
+    private List<Coins> coins;
+
+    @OneToMany(mappedBy = "contributeurs")
+    private List<Commentaires> commentaires;
+
+    @OneToMany(mappedBy = "contributeurs")
+    private List<Fonctionnalites> fonctionnalites;
+
+    @OneToMany(mappedBy = "contributeurs")
+    private List<Projet> projet;
+
+
+
+
+
+
+
+
 
     public int getId() {
         return id;

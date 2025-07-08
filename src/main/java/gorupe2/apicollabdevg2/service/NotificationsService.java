@@ -40,4 +40,17 @@ public class NotificationsService {
 
         notificationsRepository.deleteById(id);
     }
+
+    public Notifications envoyerNotification(Gestionnaires destinataire, String message, String type) {
+        Notifications notif = new Notifications();
+        notif.setContributeurs(destinataire);
+        notif.setContenu(message);
+        notif.setTypeNotif(type);
+        notif.setDateCreation(LocalDateTime.now());
+        return notificationsRepository.save(notif)
+    }
+
+    public List<Notifications> getNotificationsUtilisateur(Contributeurs contributeurs)  {
+        return notificationsRepository.findByDestinataire(contributeurs);
+    }
 }

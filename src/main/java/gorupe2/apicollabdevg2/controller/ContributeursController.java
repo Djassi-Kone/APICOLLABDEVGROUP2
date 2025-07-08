@@ -1,8 +1,12 @@
 package gorupe2.apicollabdevg2.controller;
 
-import gorupe2.apicollabdevg2.entity.Contributeurs;
+import gorupe2.apicollabdevg2.DTO.AuthDTO;
+import gorupe2.apicollabdevg2.DTO.ContributeursDTO;
+import gorupe2.apicollabdevg2.entity.*;
+import gorupe2.apicollabdevg2.repository.ContributeursRepository;
 import gorupe2.apicollabdevg2.service.ContributeursService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,65 +16,94 @@ import java.util.Optional;
 @RestController
 // Définition de l'URL de base pour toutes les requêtes de ce contrôleur
 @RequestMapping("/api/contributeurs")
-public class ContributeursController {
+public class contributeursController {
 
     // Injection automatique du service qui contient la logique métier liée aux contributeurs
     @Autowired
     private ContributeursService contributeursService;
+    @Autowired
+    private ContributeursRepository contributeursRepository;
 
-    /**
-     * Méthode pour ajouter un contributeur
-     * Reçoit les données d'un contributeur dans le corps de la requête en format JSON
-     * Méthode HTTP : POST => utilisée pour créer une nouvelle ressource
-     */
-    @PostMapping
-    public Contributeurs AjouterContributeurs(@RequestBody Contributeurs contributeurs) {
-        return contributeursService.AjouterContributeur(contributeurs);
-    }
 
-    /**
-     * Méthode pour récupérer la liste de tous les contributeurs
-     * Méthode HTTP : GET => récupération d'une ressource
-     */
-    @GetMapping
-    public List<Contributeurs> ListerContributeurs() {
-        return contributeursService.ListerContributeurs();
-    }
 
-    /**
-     * Méthode pour récupérer un contributeur par son identifiant
-     * @param id identifiant du contributeur
-     * Méthode HTTP : GET avec paramètre dans l'URL
-     */
+
     @GetMapping("/{id}")
     public Optional<Contributeurs> AfficherContributeurParId(@PathVariable int id) {
         return contributeursService.AfficherContributeurParId(id);
     }
 
-    /**
-     * Méthode pour modifier un contributeur par son identifiant
-     * @param id identifiant du contributeur
-     * Méthode HTTP : PUT avec paramètre dans l'URL
-     */
-    @PutMapping("/{id}") // Correction : ici on utilise PUT pour mettre à jour une ressource existante
-    public Contributeurs Modifier(@PathVariable int id, @RequestBody Contributeurs contributeur) {
-        return contributeursService.ModifierContributeur(id, contributeur);
+
+
+    @PostMapping("/contributeurs")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Contributeurs creerContributeur(@RequestBody ContributeursDTO contributeursDTO) {
+        return contributeursService.AjouterContributeur(contributeursDTO);
     }
 
-    /**
-     * Méthode pour supprimer un contributeur par son identifiant
-     * Méthode HTTP : DELETE
-     */
-    @DeleteMapping("/{id}")
+
+    @PutMapping("/contributeurs/{id}")
+    public Contributeurs ContributeursModifier(@PathVariable int id, @RequestBody ContributeursDTO contributeursDTO) {
+        return contributeursService.ContributeursModifier(id, contributeursDTO);
+    }
+
+    @GetMapping("/contributeurs")
+    public List<ContributeursDTO> getAllcontributeurs() {
+        return contributeursService.ListerContributeurs();
+    }
+
+    @DeleteMapping("/contributeurs/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void supprimerContributeur(@PathVariable int id) {
+
         contributeursService.SupprimerContributeur(id);
     }
 
-   /* @PostMapping
-    public Contributeur ajouterContributeur(@RequestBody ContributeurDTO dto) {
+    @PostMapping("/contributeurs/{id}/connexion")
+    public Contributeurs connecter(@RequestBody AuthDTO authDTO) {
+        return contributeursService.Contributeurconect(authDTO.getEmail(), authDTO.getPassword());
+    }
 
-        Contributeur contributeur = ContributeurService.convertirEnEntite(dto);
-        Contributeur saved = contributeurService.AjouterContributeur(contributeur);
-        return ContributeurService.convertirEnDTO(saved);
-    }*/
+    @PostMapping("/contributeurs/{id}/deconnexion")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deconnecter(@PathVariable int id) {
+        contributeursService.deconnecter(id);
+    }
 }
+// Ajoutez ces endpoints à votre classe existante ContributeursController
+
+        @PostMapping("/{contributeurId}/idees-projet")
+        @ResponseStatus(HttpStatus.CREATED)
+        public IdeeProjet creerIdeeProjet(
+                @PathVariable int contributeurId,
+                @RequestParam String titre,
+                @RequestParam String description) {
+            return ContributeursService.creerIdeeProjet(contributeurId, titre, description);
+        }
+
+        @PostMapping("/{contributeurId}/commentaires")
+        @ResponseStatus(HttpStatus.CREATED)
+        public Commentaires commenterProjet(
+                @PathVariable int contributeurId,
+                @RequestParam int projetId,
+                @RequestParam String contenu) {
+            return ContributeursService.commenterProjet(contributeurId, projetId, contenu);
+        }
+
+        @PostMapping("/{contributeurId}/debloquer-projet")
+        @ResponseStatus(HttpStatus.CREATED)
+        public DebloquerProjet debloquerProjet(
+                @PathVariable int contributeurId,
+                @RequestParam int projetId,
+                @RequestParam double montant) {
+            return ContributeursService.debloquerProjet(contributeurId, projetId, montant);
+        }
+
+        @PostMapping("/{contributeurId}/contributions")
+        @ResponseStatus(HttpStatus.CREATED)
+        public Contributions contribuerAuProjet(
+                @PathVariable int contributeurId,
+                @RequestParam int projetId,
+                @RequestParam String typeContribution,
+                @RequestParam String description) {
+            return ContributeursService.contribuerAuProjet(contributeurId, projetId, typeContribution, description);
+        }

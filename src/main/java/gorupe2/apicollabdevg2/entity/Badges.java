@@ -17,6 +17,10 @@ public class Badges {
     private int nombreBadge;
     private String image;
 
+    @ManyToOne
+    @JoinColumn(name = "contributeur_id")  // nom de colonne au choix
+    private Contributeurs contributeurs;
+
     public int getId() {
         return id;
     }

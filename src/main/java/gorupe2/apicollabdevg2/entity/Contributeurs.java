@@ -24,10 +24,10 @@ public class Contributeurs {
     private Profil profil;
     @Enumerated(EnumType.STRING)
     private Niveau niveau;
-
-    @ManyToOne
-    @JoinColumn(name="projet_id", referencedColumnName = "id", nullable = false)
-    private Projet projet;
+    private boolean connected = false;
+    //@ManyToOne
+    //@JoinColumn(name="projet_id", referencedColumnName = "id", nullable = false)
+    //private Projet projet;
 
     @OneToMany(mappedBy = "contributeurs")
     private List<Notifications> notifications;
@@ -53,15 +53,8 @@ public class Contributeurs {
     @OneToMany(mappedBy = "contributeurs")
     private List<Fonctionnalites> fonctionnalites;
 
-    @OneToMany(mappedBy = "contributeurs")
+   @OneToMany(mappedBy = "contributeurs")
     private List<Projet> projet;
-
-
-
-
-
-
-
 
 
     public int getId() {
@@ -120,12 +113,12 @@ public class Contributeurs {
         this.niveau = niveau;
     }
 
-    public Projet getProjet() {
-        return projet;
+    public List<Notifications> getNotifications() {
+        return notifications;
     }
 
-    public void setProjet(Projet projet) {
-        this.projet = projet;
+    public void setNotifications(List<Notifications> notifications) {
+        this.notifications = notifications;
     }
 
     public List<Contributions> getContributions() {
@@ -136,12 +129,71 @@ public class Contributeurs {
         this.contributions = contributions;
     }
 
-    public List<Notifications> getNotifications() {
-        return notifications;
+    public List<DebloquerProjet> getDebloquerProjet() {
+        return debloquerProjet;
     }
 
-    public void setNotifications(List<Notifications> notifications) {
-        this.notifications = notifications;
+    public void setDebloquerProjet(List<DebloquerProjet> debloquerProjet) {
+        this.debloquerProjet = debloquerProjet;
+    }
+
+    public List<IdeeProjet> getIdeeProjet() {
+        return ideeProjet;
+    }
+
+    public void setIdeeProjet(List<IdeeProjet> ideeProjet) {
+        this.ideeProjet = ideeProjet;
+    }
+
+    public List<Badges> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(List<Badges> badges) {
+        this.badges = badges;
+    }
+
+    public List<Coins> getCoins() {
+        return coins;
+    }
+
+    public void setCoins(List<Coins> coins) {
+        this.coins = coins;
+    }
+
+    public List<Commentaires> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaires> commentaires) {
+        this.commentaires = commentaires;
+    }
+
+    public List<Fonctionnalites> getFonctionnalites() {
+        return fonctionnalites;
+    }
+
+    public void setFonctionnalites(List<Fonctionnalites> fonctionnalites) {
+        this.fonctionnalites = fonctionnalites;
+    }
+
+    public List<Projet> getProjet() {
+        return projet;
+    }
+
+    public void setProjet(List<Projet> projet) {
+        this.projet = projet;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
+
+    public Contributeurs() {
     }
 }
 

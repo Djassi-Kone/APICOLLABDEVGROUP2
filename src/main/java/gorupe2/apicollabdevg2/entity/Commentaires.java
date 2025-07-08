@@ -3,6 +3,8 @@ package gorupe2.apicollabdevg2.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "Commentaires")
@@ -13,7 +15,7 @@ public class Commentaires {
     private int id;
     private String contenu;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(
             name="contributeur_id",
             referencedColumnName = "id",
@@ -60,5 +62,11 @@ public class Commentaires {
 
     public void setProjet(Projet projet) {
         this.projet = projet;
+    }
+
+    public void setDateCreation(LocalDateTime now) {
+    }
+
+    public void setContributeur(Contributeurs contributeur) {
     }
 }

@@ -16,6 +16,7 @@ public class Projet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "projet_id") // Explicitement nommer la colonne ID
     private int id;
 
     @NotBlank
@@ -29,28 +30,22 @@ public class Projet {
     @Size(min = 10, max = 500)
     private String description;
 
+    // Correction des relations pour éviter la duplication de colonne
     @ManyToOne
-    @JoinColumn(
-            name="projet_id",
-            referencedColumnName="id",
-            nullable=false
-    )
+    @JoinColumn(name="gestionnaire_id", referencedColumnName="id", nullable=false)
     private Gestionnaires gestionnaire;
 
-    @OneToMany(mappedBy = "projet")
-    private List<Contributeurs> contributeur;
+    @ManyToOne
+    @JoinColumn(name="contributeur_id", referencedColumnName = "id", nullable = false)
+    private Contributeurs contributeur;
 
     @OneToOne
-    @JoinColumn(name = "ideeProjet_id",
-            referencedColumnName = "id",
-            nullable=false)
+    @JoinColumn(name = "ideeProjet_id", referencedColumnName = "id", nullable=false)
     private IdeeProjet ideeProjet;
 
     @OneToOne
-    @JoinColumn(name = "domaine_id",
-            referencedColumnName = "id",
-            nullable=false)
-    private Domaines domaines;
+    @JoinColumn(name = "domaine_id", referencedColumnName = "id", nullable=false)
+    private Domaines domaine;
 
     @OneToMany(mappedBy = "projet")
     private List<Contributions> contributions;
@@ -63,11 +58,11 @@ public class Projet {
         this.id = id;
     }
 
-    public String getTitre() {
+    public @NotBlank String getTitre() {
         return titre;
     }
 
-    public void setTitre(String titre) {
+    public void setTitre(@NotBlank String titre) {
         this.titre = titre;
     }
 
@@ -111,11 +106,11 @@ public class Projet {
         this.historique = historique;
     }
 
-    public String getDescription() {
+    public @Size(min = 10, max = 500) String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(@Size(min = 10, max = 500) String description) {
         this.description = description;
     }
 
@@ -127,11 +122,11 @@ public class Projet {
         this.gestionnaire = gestionnaire;
     }
 
-    public List<Contributeurs> getContributeur() {
+    public Contributeurs getContributeur() {
         return contributeur;
     }
 
-    public void setContributeur(List<Contributeurs> contributeur) {
+    public void setContributeur(Contributeurs contributeur) {
         this.contributeur = contributeur;
     }
 
@@ -143,12 +138,12 @@ public class Projet {
         this.ideeProjet = ideeProjet;
     }
 
-    public Domaines getDomaines() {
-        return domaines;
+    public Domaines getDomaine() {
+        return domaine;
     }
 
-    public void setDomaines(Domaines domaines) {
-        this.domaines = domaines;
+    public void setDomaine(Domaines domaine) {
+        this.domaine = domaine;
     }
 
     public List<Contributions> getContributions() {
@@ -158,6 +153,10 @@ public class Projet {
     public void setContributions(List<Contributions> contributions) {
         this.contributions = contributions;
     }
+
+    public Object getMontantCollecte() {
+    }
+
+    public void setMontantCollecte(double v) {
+    }
 }
-
-

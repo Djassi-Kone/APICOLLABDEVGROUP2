@@ -2,6 +2,8 @@ package gorupe2.apicollabdevg2.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "DebloquerProjet")
 public class DebloquerProjet {
@@ -48,5 +50,17 @@ public class DebloquerProjet {
 
     public void setContributeurs(Contributeurs contributeurs) {
         this.contributeurs = contributeurs;
+    }
+
+    public void setMontant(double montant) {
+    }
+
+    public void setDateDebloquage(LocalDateTime now) {
+    }
+
+    public void setContributeur(Contributeurs contributeur) {
+    }
+
+    public void setProjet(Projet projet) {
     }
 }

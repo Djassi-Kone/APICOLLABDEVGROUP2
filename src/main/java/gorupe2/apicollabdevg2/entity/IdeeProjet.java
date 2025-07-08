@@ -18,19 +18,12 @@ public class IdeeProjet {
     private String niveau;
     private LocalDateTime dateCreation;
 
-    @OneToOne
-    @JoinColumn(
-            name="contributeur_id",
-            referencedColumnName = "id",
-            nullable = false
-    )
-    private Contributeurs contributeurs;
     @ManyToOne
-    @JoinColumn(
-            name="domaine_id",
-            referencedColumnName = "id",
-            nullable = false
-    )
+    @JoinColumn(name="contributeur_id", referencedColumnName = "id", nullable = false)
+    private Contributeurs contributeurs;
+
+    @ManyToOne
+    @JoinColumn(name="domaine_id", referencedColumnName = "id", nullable = false)
     private Domaines domaines;
 
     public int getId() {

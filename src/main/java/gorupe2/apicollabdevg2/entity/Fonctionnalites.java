@@ -17,16 +17,15 @@ public class Fonctionnalites {
     private StatutProjet statutP;
 
     @OneToOne
-    @JoinColumn(name = "projet_id",
-            referencedColumnName = "id",
-            nullable = false)
+    @JoinColumn(name = "projet_id", referencedColumnName = "id", nullable = false)
     private Projet projet;
     @ManyToOne
-    @JoinColumn(name = "gestionnaire_id",
-            referencedColumnName = "id",
-            nullable = false)
+    @JoinColumn(name = "gestionnaire_id", referencedColumnName = "id", nullable = false)
     private Gestionnaires gestionnaires;
 
+    @ManyToOne
+    @JoinColumn(name = "contributeur_id")  // Nom de la colonne de jointure
+    private Contributeurs contributeurs;
 
     public int getId() {
         return id;

@@ -14,11 +14,7 @@ public class Coins {
     private int nbrCoins;
 
     @ManyToOne
-    @JoinColumn(
-            name="contributeur_id",
-            referencedColumnName = "id",
-            nullable = false
-    )
+    @JoinColumn(name="contributeur_id", referencedColumnName = "id", nullable = false)
     private Contributeurs contributeurs;
 
     public int getId() {
@@ -43,5 +39,8 @@ public class Coins {
 
     public void setContributeurs(Contributeurs contributeurs) {
         this.contributeurs = contributeurs;
+    }
+
+    public double getMontant() {
     }
 }

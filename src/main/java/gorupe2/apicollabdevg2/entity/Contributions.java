@@ -18,18 +18,16 @@ public class Contributions {
     private String contenu;
     @Enumerated(EnumType.STRING)
     private StatutProjet statutP;
-    private LocalDateTime date;
+    private LocalDateTime DateContribution;
+    //private String setTypeContribution;
+
 
     @ManyToOne
-    @JoinColumn(name = "contibuteur_id",
-            referencedColumnName = "id",
-            nullable = false)
+    @JoinColumn(name = "contibuteur_id", referencedColumnName = "id", nullable = false)
     private Contributeurs contributeurs;
 
     @ManyToOne
-    @JoinColumn(name = "projet_id",
-            referencedColumnName = "id",
-            nullable = false)
+    @JoinColumn(name = "projet_id", referencedColumnName = "id", nullable = false)
     private Projet projet;
 
 
@@ -87,6 +85,15 @@ public class Contributions {
 
     public void setProjet(Projet projet) {
         this.projet = projet;
+    }
+
+    public void setDescription(String description) {
+    }
+
+    public void setContributeur(Contributeurs contributeur) {
+    }
+
+    public void setTypeContribution(String typeContribution) {
     }
 }
 

@@ -1,8 +1,6 @@
 package gorupe2.apicollabdevg2.controller;
 
-import gorupe2.apicollabdevg2.entity.Contributions;
 import gorupe2.apicollabdevg2.entity.DebloquerProjet;
-import gorupe2.apicollabdevg2.service.ContributionsService;
 import gorupe2.apicollabdevg2.service.DebloquerProjetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

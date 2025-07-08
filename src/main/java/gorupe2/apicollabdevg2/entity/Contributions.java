@@ -13,80 +13,22 @@ public class Contributions {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int id_contribution ;
-    private int nbrCoins;
+    private Long idContribution;
+
+    private String titre;
+
     private String contenu;
-    @Enumerated(EnumType.STRING)
-    private StatutProjet statutP;
-    private LocalDateTime date;
+
+    private String type; // Exemple : "code", "design", "idée", etc.
+
+    private LocalDateTime dateSoumission;
 
     @ManyToOne
-    @JoinColumn(name = "contibuteur_id",
-            referencedColumnName = "id",
-            nullable = false)
-    private Contributeurs contributeurs;
-
-    @ManyToOne
-    @JoinColumn(name = "projet_id",
-            referencedColumnName = "id",
-            nullable = false)
+    @JoinColumn(name = "id_projet", nullable = true)
     private Projet projet;
 
-
-    public int getId_contribution() {
-        return id_contribution;
-    }
-
-    public void setId_contribution(int id_contribution) {
-        this.id_contribution = id_contribution;
-    }
-
-    public int getNbrCoins() {
-        return nbrCoins;
-    }
-
-    public void setNbrCoins(int nbrCoins) {
-        this.nbrCoins = nbrCoins;
-    }
-
-    public String getContenu() {
-        return contenu;
-    }
-
-    public void setContenu(String contenu) {
-        this.contenu = contenu;
-    }
-
-    public StatutProjet getStatutP() {
-        return statutP;
-    }
-
-    public void setStatutP(StatutProjet statutP) {
-        this.statutP = statutP;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public Contributeurs getContributeurs() {
-        return contributeurs;
-    }
-
-    public void setContributeurs(Contributeurs contributeurs) {
-        this.contributeurs = contributeurs;
-    }
-
-    public Projet getProjet() {
-        return projet;
-    }
-
-    public void setProjet(Projet projet) {
-        this.projet = projet;
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_contributeur", nullable = true)
+    private Contributeurs contributeur;
 }
 
